@@ -14,7 +14,7 @@
 	</script>
 	
 	<style type="text/css">
-		body { font:1em Helvetica,Arial,sans-serif; font-weight:lighter; line-height:1.6em; margin:0 auto; max-width:40em; padding:60px 40px 60px; }
+		body { background:#eef; font:1em Helvetica,Arial,sans-serif; font-weight:lighter; line-height:1.6em; margin:0 auto; max-width:40em; padding:60px 40px 60px; }
 		blockquote.example { margin:0; padding:1em 30px; }
 		blockquote.example footer, blockquote.example header, blockquote.example section { margin-bottom:5px; }
 		blockquote.example pre { margin:0; }
@@ -24,7 +24,7 @@
 		h3, h4, h5, h6 { font-weight:bold; margin:0; }
 		p { margin-bottom:1.2em; }
 		pre { background:#FFE273; color:#222; border:2px solid #EFD263; font:0.8em monaco; margin:20px; padding:20px; }
-		footer, header, section { border:1px solid #ccc; display:block; margin-bottom:2em; padding:10px; }
+		footer, header, section { background:#fff; border:1px solid #ccc; display:block; margin-bottom:2em; padding:10px; }
 		strong { font-weight:bold; }
 	</style>
 </head>
@@ -32,7 +32,11 @@
 	<article>
 		<header>
 			<h1>HTML 5 innerShiv</h1>
-			<p>A workaround for dynamic HTML 5 + innerHTML in Internet Explorer.</p>
+			<p>Even with a shiv, this won't work in IE:</p>
+			<pre>var s = document.createElement('div');
+s.innerHTML = "&lt;section&gt;Hi!&lt;/section&gt;";
+document.body.appendChild(s);</pre>
+			<p>This script is a workaround.</p>
 			
 			<nav>
 				<ul>
@@ -46,14 +50,14 @@
 		
 		<section id="problem">
 			<h2>The Problem</h2>
-			<p>This document includes the following in its stylesheet:</p>
+			<p>An example of the problem: this document includes the following in its stylesheet:</p>
 			<pre>footer, header, section {
    border:1px solid #ccc;
    display:block;
    padding:10px;
 }</pre>
 			<p>As you can see, this <code>section</code> is surrounded by a gray border, even in Internet Explorer, thanks to <a href="http://html5shiv.googlecode.com/svn/trunk/html5.js">the HTML 5 shiv</a>.</p>
-			<p>However, the shiv doesn't work in Internet Explorer for content that's added to an element via innerHTML before that element has been appended to the document. This is a common use case, and noticeable in libraries like jQuery when you try to <code>append</code> or <code>load</code> (etc.) additional content:</p>
+			<p>However, the shiv doesn't work in Internet Explorer when an element's content is added with <code>innerHTML</code> <em>before</em> being appended to the document. That's a common use case, and noticeable in libraries like jQuery when you try to <code>append</code> or <code>load</code> (etc.) HTML5 content. For example:</p>
 		
 			<blockquote class="example">
 				<div id="example-1"></div>
@@ -69,7 +73,7 @@
 		<section id="solution">
 			<h2>A Solution</h2>
 			<pre>innerShiv("&lt;section&gt;html string&lt;/section&gt;")</pre>
-			<p>My solution is <code>innerShiv</code>, a function which takes your HTML string, adds it to a hidden document-appended element in IE, and returns a document fragment or collection of nodes you can append directly with <code>appendChild</code> or throw at jQuery for further fun:</p>
+			<p><code>innerShiv</code> is a function which takes your HTML string, adds it to a hidden document-appended element in IE, and returns an IE-safe document fragment or collection:</p>
 			
 			<blockquote class="example">
 				<div id="example-2"></div>
@@ -82,7 +86,7 @@
   &lt;/section&gt;"<strong>)</strong>);</pre>
 			</blockquote>
 			
-			<p>innerShiv <strong>doesn't require jQuery or any other library</strong>. Because it returns document fragments, you can append its return values with appendChild and other regular DOM methods:</p>
+			<p>innerShiv <strong>doesn't require jQuery or any other library</strong>. Because it returns document fragments, you can append its return values with <code>appendChild</code> or whatever:</p>
 			
 			<blockquote class="example">
 				<div id="example-3"></div>
