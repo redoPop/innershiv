@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8 />
+	<title>HTML 5 innerShiv</title>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script>
+	// Remy's regular shiv:
+	/*@cc_on'abbr article aside audio canvas details figcaption figure footer header hgroup mark menu meter nav output progress section summary time video'.replace(/\w+/g,function(n){document.createElement(n)});@*/
+	
+	// The innerShiv method:
+	window.innerShiv=(function(){var d,r;return function(h,u){if(!d){d=document.createElement('div');r=document.createDocumentFragment();/*@cc_on d.style.display = 'none'@*/}var e=d.cloneNode(true);/*@cc_on document.body.appendChild(e);@*/e.innerHTML=h;/*@cc_on document.body.removeChild(e);@*/if(u===false)return e.childNodes;var f=r.cloneNode(true),i=e.childNodes.length;while(i--)f.appendChild(e.firstChild);return f}}());
+	</script>
+	
+	<style type="text/css">
+		body { font:1em Helvetica,Arial,sans-serif; font-weight:lighter; line-height:1.6em; margin:0 auto; max-width:40em; padding:60px 40px 60px; }
+		blockquote.example { margin:0; padding:1em 30px; }
+		blockquote.example footer, blockquote.example header, blockquote.example section { margin-bottom:5px; }
+		blockquote.example pre { margin:0; }
+		cite { color:#777; display:block; font-size:90%; font-style:italic; }
+		h1, h2 { font:1.9em Myriad Pro, Trebuchet MS, Arial, Sans-Serif; font-weight:lighter; margin:0 0 0.4ex; }
+		h2 { font-size:1.6em; margin:0 0 0.2ex; }
+		h3, h4, h5, h6 { font-weight:bold; margin:0; }
+		p { margin-bottom:1.2em; }
+		pre { background:#FFE273; color:#222; border:2px solid #EFD263; font:0.8em monaco; margin:20px; padding:20px; }
+		footer, header, section { border:1px solid #ccc; display:block; margin-bottom:2em; padding:10px; }
+		strong { font-weight:bold; }
+	</style>
+</head>
+<body class="hrm">
+	<article>
+		<header>
+			<h1>HTML 5 innerShiv</h1>
+			<p>A workaround for dynamic HTML 5 + innerHTML in Internet Explorer.</p>
+			
+			<nav>
+				<ul>
+					<li><a href="#problem">The Problem</a></li>
+					<li><a href="#solution">A Solution</a></li>
+					<li><a href="#jquery">A note on jQuery</a></li>
+					<li><a href="#download">Download</a></li>
+				</ul>
+			</nav>
+		</header>
+		
+		<section id="problem">
+			<h2>The Problem</h2>
+			<p>This document includes the following in its stylesheet:</p>
+			<pre>footer, header, section {
+   border:1px solid #ccc;
+   display:block;
+   padding:10px;
+}</pre>
+			<p>As you can see, this <code>section</code> is surrounded by a gray border, even in Internet Explorer, thanks to <a href="http://html5shiv.googlecode.com/svn/trunk/html5.js">the HTML 5 shiv</a>.</p>
+			<p>However, the shiv doesn't work in Internet Explorer for content that's added to an element via innerHTML before that element has been appended to the document. This is a common use case, and noticeable in libraries like jQuery when you try to <code>append</code> or <code>load</code> (etc.) additional content:</p>
+		
+			<blockquote class="example">
+				<div id="example-1"></div>
+				<script>$('#example-1').append("<section><header><h3>Example 1: a broken section</h3></header><p>This section element should have a gray border like the others. It doesn't in Internet Explorer. :(</p></section>");</script>
+				<cite>Example 1 code:</cite>
+				<pre>$('#example-1').append("&lt;section&gt;&lt;header&gt;&lt;h3&gt;Example 1:\
+  a broken section&lt;/h3&gt;&lt;/header&gt;&lt;p&gt;This section element should\
+  have a black border like the others. It doesn't in Internet\
+  Explorer. :(&lt;/p&gt;&lt;/section&gt;");</pre>
+			</blockquote>
+		</section>
+	
+		<section id="solution">
+			<h2>A Solution</h2>
+			<pre>innerShiv("&lt;section&gt;html string&lt;/section&gt;")</pre>
+			<p>My solution is <code>innerShiv</code>, a function which takes your HTML string, adds it to a hidden document-appended element in IE, and returns a document fragment or collection of nodes you can append directly with <code>appendChild</code> or throw at jQuery for further fun:</p>
+			
+			<blockquote class="example">
+				<div id="example-2"></div>
+				<script>$('#example-2').append(innerShiv("<section><header><h3>Example 2: a successfully styled section</h3></header><p>This section element should have a gray border like the others. And it does! Even in Internet Explorer! Yay!</p></section>"));</script>
+				<cite>Example 2 code:</cite>
+				<pre>$('#example-2').append(<strong>innerShiv(</strong>"&lt;section&gt;&lt;header&gt;&lt;h3&gt;\
+  Example 2: a successfully styled section&lt;/h3&gt;&lt;/header&gt;\
+  &lt;p&gt;This section element should have a gray border like the\
+  others. And it does! Even in Internet Explorer! Yay!.&lt;/p&gt;\
+  &lt;/section&gt;"<strong>)</strong>);</pre>
+			</blockquote>
+			
+			<p>innerShiv <strong>doesn't require jQuery or any other library</strong>. Because it returns document fragments, you can append its return values with appendChild and other regular DOM methods:</p>
+			
+			<blockquote class="example">
+				<div id="example-3"></div>
+				<script>var s = document.createElement('section'); s.appendChild(innerShiv("<header><h3>Example 3: look, ma: no jQuery</h3></header><p>This section element's contents have been added with appendChild.</p>")); document.getElementById('example-3').appendChild(s);</script>
+				<cite>Example 3 code:</cite>
+				<pre>var s = document.createElement('section');
+
+s.appendChild(<strong>innerShiv(</strong>"&lt;header&gt;&lt;h3&gt;Example 3: look, ma:\
+  no jQuery&lt;/h3&gt;&lt;/header&gt;&lt;p&gt;This section element's contents\
+  have been added with appendChild.&lt;/p&gt;"<strong>)</strong>);
+
+document.getElementById('example-3').appendChild(s);</pre>
+			</blockquote>
+		</section>
+		
+		<section id="jquery">
+			<h2>A note on jQuery</h2>
+			<p>When creating a jQuery object from innerShiv, you should pass a second parameter&mdash;boolean false&mdash;which instructs innerShiv to return an array of elements instead of a document fragment:</p>
+			<pre>$(innerShiv("html string", <strong>false</strong>))</pre>
+			<p>This enables you to do further manipulation before inserting content into the document:</p>
+			
+			<blockquote class="example">
+				<div id="example-4"></div>
+				<script>$('#example-4').append($(innerShiv("<section><header><h3>Example 4: </h3></header><p>This section's innerShiv'd header was manipulated with jQuery.</p></section>", false)).find('h3').append('returning nodes instead of a fragment').end());</script>
+				<cite>Example 4 code:</cite>
+				<pre>$('#example-4').append(
+  $(<strong>innerShiv(</strong>
+    "&lt;section&gt;&lt;header&gt;\
+      &lt;h3&gt;Example 4: &lt;/h3&gt;&lt;/header&gt;&lt;p&gt;This section's\
+      innerShiv'd header was manipulated with jQuery.\
+      &lt;/p&gt;&lt;/section&gt;"<strong>,
+    false
+  )</strong>)
+  .find('h3')
+    .append('returning nodes instead of a fragment')
+  .end()
+);</pre>
+			</blockquote>
+		</section>
+		
+		<section id="download">
+			<h2>Download</h2>
+			
+			<ul>
+				<li><a href="innershiv.js">innershiv.js</a> - uncompressed version</li>
+				<li><a href="innershiv.min.js">innershiv.js.min</a> - minified or whatever</li>
+			</ul>
+		</section>
+		
+		<footer><small>call me: <a href="http://jdbartlett.com">jdbartlett.com</a> | <a href="mailto:xo@jdbartlett.com">xo@jdbartlett.com</a> | <a href="http://twitter.com/jdbartlett">@jdbartlett</a></small></footer>
+	</article>
+</body>
+</html>
