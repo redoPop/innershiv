@@ -11,7 +11,7 @@ window.innerShiv = (function() {
 		
 		var e = d.cloneNode(true);
 		/*@cc_on document.body.appendChild(e);@*/
-		e.innerHTML = h;
+		e.innerHTML = h.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 		/*@cc_on document.body.removeChild(e);@*/
 		
 		if (u === false) return e.childNodes;
