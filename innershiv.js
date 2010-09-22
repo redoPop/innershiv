@@ -1,4 +1,4 @@
-// http://jdbartlett.github.com/innershiv
+// http://jdbartlett.github.com/innershiv | WTFPL License
 window.innerShiv = (function() {
 	var d, r;
 	
