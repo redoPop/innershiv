@@ -42,7 +42,7 @@ document.body.appendChild(s);</pre>
 				<ul>
 					<li><a href="#problem">The Problem</a></li>
 					<li><a href="#solution">A Solution</a></li>
-					<li><a href="#jquery">A note on jQuery</a></li>
+					<li><a href="#jquery">Notes on jQuery</a></li>
 					<li><a href="#download">Download</a></li>
 				</ul>
 			</nav>
@@ -103,7 +103,7 @@ document.getElementById('example-3').appendChild(s);</pre>
 		</section>
 		
 		<section id="jquery">
-			<h2>A note on jQuery</h2>
+			<h2>Notes on jQuery</h2>
 			<p>When creating a jQuery object from innerShiv, you should pass a second parameter&mdash;boolean false&mdash;which instructs innerShiv to return an array of elements instead of a document fragment:</p>
 			<pre>$(innerShiv("html string", <strong>false</strong>))</pre>
 			<p>This enables you to do further manipulation before inserting content into the document:</p>
@@ -125,6 +125,8 @@ document.getElementById('example-3').appendChild(s);</pre>
   .end()
 );</pre>
 			</blockquote>
+
+			<p>A common question is how to use innerShiv with jQuery's <code>.load()</code> method. <a href="https://gist.github.com/735829">This gist</a> provides an alternative method <code>.loadShiv()</code>, which is based on and acts like jQuery's <code>.load()</code> but passes incoming HTML through innerShiv before adding anything to the DOM. <a href="https://gist.github.com/735829">Download loadShiv separately</a> and add it to your project, then simply call <code>.loadShiv()</code> instead of <code>.load()</code>.</p>
 		</section>
 		
 		<section id="download">
