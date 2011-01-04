@@ -17,9 +17,8 @@ window.innerShiv = (function() {
 			/*@cc_on d.style.display = 'none';@*/
 		}
 		
-		var matches = h.match(tableFix), tagName;
+		var matches = h.match(tableFix);
 		if (matches) {
-			tagName = matches[1];
 			h = '<table>' + h + '</table>';
 		}
 		
@@ -31,7 +30,7 @@ window.innerShiv = (function() {
 		/*@cc_on document.body.removeChild(e);@*/
 		
 		if (matches) {
-			e = e.getElementsByTagName(tagName)[0].parentNode;
+			e = e.getElementsByTagName(matches[1])[0].parentNode;
 		}
 		
 		if (u === false) return e.childNodes;
