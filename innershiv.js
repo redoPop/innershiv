@@ -17,6 +17,8 @@ window.innerShiv = (function() {
 			/*@cc_on d.style.display = 'none';@*/
 		}
 		
+		h = h.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
 		var matches = h.match(tableFix);
 		if (matches) {
 			h = '<table>' + h + '</table>';
@@ -24,9 +26,7 @@ window.innerShiv = (function() {
 		
 		var e = d.cloneNode(true);
 		/*@cc_on document.body.appendChild(e);@*/
-		e.innerHTML = h.replace(rxhtmlTag, fcloseTag) // from jQuery, add the ability to interpret xhtml style tags
-			.replace(/^\s\s*/, '')
-			.replace(/\s\s*$/, '');
+		e.innerHTML = h.replace(rxhtmlTag, fcloseTag); // from jQuery, add the ability to interpret xhtml style tags
 		/*@cc_on document.body.removeChild(e);@*/
 		
 		if (matches) {
