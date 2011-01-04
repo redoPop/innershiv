@@ -1,4 +1,4 @@
-// http://jdbartlett.github.com/innershiv
+// http://jdbartlett.github.com/innershiv | WTFPL License
 window.innerShiv = (function() {
 	var d, r;
 	// from jQuery, add the ability to interpret xhtml style tags
@@ -19,9 +19,9 @@ window.innerShiv = (function() {
 		
 		var e = d.cloneNode(true);
 		/*@cc_on document.body.appendChild(e);@*/
-		// from jQuery, add the ability to interpret xhtml style tags
-		h = h.replace(rxhtmlTag, fcloseTag);
-		e.innerHTML = h;
+		e.innerHTML = h.replace(rxhtmlTag, fcloseTag) // from jQuery, add the ability to interpret xhtml style tags
+			.replace(/^\s\s*/, '')
+			.replace(/\s\s*$/, '');
 		/*@cc_on document.body.removeChild(e);@*/
 		
 		if (u === false) return e.childNodes;
