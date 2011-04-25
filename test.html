@@ -27,7 +27,7 @@
 	}
 	</script>
 	
-	<script src="innershiv.js"></script>
+	<script src="innershiv.min.js"></script>
 	
 	<style type="text/css">
 		body { background:#ffe273; color:#333; font:1em Helvetica,Arial,sans-serif; font-weight:lighter; line-height:1.4; margin:0 auto; max-width:40em; padding:40px 40px 0; }
@@ -113,7 +113,7 @@
 		
 		<section class="test">
 			<h2>Test 6: edge cases &amp; idiot proofing</h2>
-			<p>This tests innerShiv's ability to cope with elements inside tables, with incorrectly used empty tags, and with whitespace surrounding the HTML.</p>
+			<p>This tests innerShiv's ability to cope with elements inside tables, with incorrectly used empty tags, and to strip scripts and whitespace surrounding the HTML.</p>
 			<p>The table below should contain two rows:</p>
 			
 			<table>
@@ -123,7 +123,7 @@
 			</table>
 			<script>
 				test (6, function () {
-					document.getElementById('test-6').appendChild(innerShiv("  <tr><td>John Adams<span /></td><td><time datetime=\"1797-03-04\">March 4, 1797</time></td></tr>  "));
+					document.getElementById('test-6').appendChild(innerShiv("  <tr><td>John Adams<span /><script>alert('You shouldn\'t see this alert!');<\/script></td><td><time datetime=\"1797-03-04\">March 4, 1797</time></td></tr>  "));
 				});
 			</script>
 		</section>

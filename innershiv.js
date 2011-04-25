@@ -6,6 +6,7 @@ window.innerShiv = (function () {
 	var inaTable = /^<(tbody|tr|td|col|colgroup|thead|tfoot)/i;
 	var remptyTag = /(<([\w:]+)[^>]*?)\/>/g;
 	var rselfClosing = /^(?:area|br|col|embed|hr|img|input|link|meta|param)$/i;
+	var rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
 	
 	function fcloseTag (all, front, tag) {
 		return rselfClosing.test(tag) ? all : front + '></' + tag + '>';
@@ -25,8 +26,8 @@ window.innerShiv = (function () {
 			}
 		}
 		
-		// Trim whitespace to avoid returning text nodes
-		html = html.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		// Trim whitespace to avoid returning text nodes, strip script tags, and fix misuses of self-closing style
+		html = html.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(rscript, '').replace(remptyTag, fcloseTag);
 		
 		// Fix for using innerHTML in a table
 		var tabled = html.match(inaTable);
@@ -41,15 +42,14 @@ window.innerShiv = (function () {
 			document.body.appendChild(div);
 		}
 		
-		// Apply innerHTML, fixing any misuses of self-closing tags
-		div.innerHTML = html.replace(remptyTag, fcloseTag);
+		div.innerHTML = html;
 		
 		// We must remove the div from the DOM to build return values.
 		if (needsShiv) {
 			document.body.removeChild(div);
 		}
 		
-		// If fixing for tables
+		// Avoid returning the tbody or tr when fixing for table use
 		if (tabled) {
 			var scope = div.getElementsByTagName(tabled[1])[0].parentNode;
 		} else {
