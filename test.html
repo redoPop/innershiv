@@ -14,9 +14,9 @@
 	function(){h.innerHTML="";k.removeChild(h);k.appendChild(f);l.styleSheet.cssText=""})}})(this,document);@*/
 	
 	// Wrapper for timing tests, etc.
-	var testRounds = 1000;
+	var testRounds = 10;
 	function test (no, func) {
-		if (testRounds && console) {
+		if (testRounds && window.console && console.log) {
 			var el = $('#test-' + no), original = el.clone(), time = new Date(), i = testRounds;
 			while (i--) func();
 			console.log('Test ' + no + ' completed. ' + testRounds + ' rounds took ' + ((new Date() - time) / 1000) + ' seconds.');
