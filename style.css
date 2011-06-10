@@ -1,0 +1,132 @@
+/* YUI 3 Reset - Copyright (c) 2010, Yahoo! Inc. All rights reserved. - BSD License: http://developer.yahoo.com/yui/license.html */
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
+
+/* HTML5 Elements */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+
+html {
+	background:#ECE9E8;
+}
+body {
+	font:1.2em "Lucida Sans Unicode","Lucida Grande","Lucida Sans",Verdana,Arial,sans-serif;
+	line-height:1.4;
+	margin:0 auto;
+	max-width:900px;
+}
+
+a {
+	color:#124093;
+}
+h2 {
+	color:#908E98;
+	font:300% PT Sans Narrow;
+}
+p {
+	line-height:1.6;
+	margin:10px 0 20px;
+}
+pre {
+	background:#192339;
+	color:#CCCCCD;
+	font:0.8em "Monaco","lucida console","bitstream vera sans mono",monospace;
+	line-height:1.8;
+	margin:20px 0;
+	padding:10px 20px;
+	
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	border-radius:20px;
+}
+section {
+	margin:40px 4%;
+}
+
+.leadin {
+	background:#192339;
+	color:#F1F1F1;
+	margin:40px 0 20px;
+	padding:0;
+	overflow:hidden;
+	width:100%;
+	
+	-moz-border-radius:30px;
+	-webkit-border-radius:30px;
+	border-radius:30px;
+}
+	.leadin div {
+		float:left;
+		padding:20px 5%;
+		width:40%;
+	}
+	.leadin p {
+		font-size:0.85em;
+		margin:0;
+	}
+	.leadin pre {
+		margin:20px 0 0;
+		padding:0;
+	}
+
+h1 {
+	color:#807E88;
+	font:410% PT Sans Narrow;
+	line-height:1;
+	text-align:center;
+}
+	h1 em {
+		color:#192339;
+	}
+	h1 strong {
+		display:block;
+		font-size:265%;
+	}
+
+.download {
+	background:transparent;
+	padding-bottom:40px;
+	text-align:center;
+}
+	.download a {
+		background-color:#807E88;
+		color:#ECE9E8;
+		font-size:130%;
+		padding:10px 6ex;
+		text-decoration:none;
+		
+		-moz-border-radius:30px;
+		-webkit-border-radius:30px;
+		border-radius:30px;
+	}
+	.download a:hover {
+		background-color:#124093;
+	}
+	.download span {
+		color:#BFBABB;
+	}
+
+.fork {
+	border:0;
+	position:fixed;
+	right:0;
+	top:0;
+}
+.oldie .fork {
+	display:none;
+}
+
+.is { color:#FFF; text-shadow: 0 0 5px #FFF; }
+.string { color:#90A86B; }
+.var { color:#7587AA; }
+
+@media screen and (max-width: 700px) {
+	.leadin div { float:none; width:auto; }
+	h1 { font-size:300%; }
+	h2 { font-size:250%; }
+	.download a { padding:10px 3ex; }
+}
+
+@media screen and (max-width: 500px) {
+	h1 { font-size:220%; }
+	h2 { font-size:200%; }
+	.download a { font-size:110%; }
+}

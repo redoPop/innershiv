@@ -1,144 +1,56 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 8 ]><html lang="en" class="oldie"><![endif]-->
+<!--[if (gt IE 7)|!(IE)]><!--><html lang="en"><!--<![endif]-->
 <head>
 	<meta charset=utf-8 />
-	<title>HTML 5 innerShiv</title>
+	<title>innerShiv makes HTML5shim work on innerHTML &amp; jQuery</title>
 	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<script>
-	// Remy's regular shiv:
-	/*@cc_on'abbr article aside audio canvas details figcaption figure footer header hgroup mark menu meter nav output progress section summary time video'.replace(/\w+/g,function(n){document.createElement(n)});@*/
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	// The innerShiv method:
-	window.innerShiv=(function(){var d,r;return function(h,u){if(!d){d=document.createElement('div');r=document.createDocumentFragment();/*@cc_on d.style.display = 'none'@*/}var e=d.cloneNode(true);/*@cc_on document.body.appendChild(e);@*/e.innerHTML=h;/*@cc_on document.body.removeChild(e);@*/if(u===false)return e.childNodes;var f=r.cloneNode(true),i=e.childNodes.length;while(i--)f.appendChild(e.firstChild);return f}}());
-	</script>
+	<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	
-	<style type="text/css">
-		body { background:#eef; font:1em Helvetica,Arial,sans-serif; font-weight:lighter; line-height:1.6em; margin:0 auto; max-width:40em; padding:60px 40px 60px; }
-		blockquote.example { margin:0; padding:1em 30px; }
-		blockquote.example footer, blockquote.example header, blockquote.example section { margin-bottom:5px; }
-		blockquote.example pre { margin:0; }
-		cite { color:#777; display:block; font-size:90%; font-style:italic; }
-		h1, h2 { font:1.9em Myriad Pro, Trebuchet MS, Arial, Sans-Serif; font-weight:lighter; margin:0 0 0.4ex; }
-		h2 { font-size:1.6em; margin:0 0 0.2ex; }
-		h3, h4, h5, h6 { font-weight:bold; margin:0; }
-		p { margin-bottom:1.2em; }
-		pre { background:#FFE273; color:#222; border:2px solid #EFD263; font:0.8em monaco; margin:20px; padding:20px; }
-		footer, header, section { background:#fff; border:1px solid #ccc; display:block; margin-bottom:2em; padding:10px; }
-		strong { font-weight:bold; }
-	</style>
+	<link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
 </head>
-<body class="hrm">
-	<article>
-		<header>
-			<h1>HTML 5 innerShiv</h1>
-			<p>Even with a shiv, this won't work in IE:</p>
-			<pre>var s = document.createElement('div');
-s.innerHTML = "&lt;section&gt;Hi!&lt;/section&gt;";
-document.body.appendChild(s);</pre>
-			<p>This script is a workaround.</p>
-			
-			<nav>
-				<ul>
-					<li><a href="#problem">The Problem</a></li>
-					<li><a href="#solution">A Solution</a></li>
-					<li><a href="#jquery">Notes on jQuery</a></li>
-					<li><a href="#download">Download</a></li>
-				</ul>
-			</nav>
-		</header>
+<body>
+	<section class="leadin">
+		<div class="boo">
+			<p>Even with HTML5shim, IE &lt; 9 won't style this:</p>
+			<pre>var <span class="var">html</span> = <span class="string">"&lt;section&gt;Baw :(&lt;/section&gt;"</span>;<br />$(<span class="string">"#el"</span>).append(<span class="var">html</span>);</pre>
+		</div>
 		
-		<section id="problem">
-			<h2>The Problem</h2>
-			<p>An example of the problem: this document includes the following in its stylesheet:</p>
-			<pre>footer, header, section {
-   border:1px solid #ccc;
-   display:block;
-   padding:10px;
-}</pre>
-			<p>As you can see, this <code>section</code> is surrounded by a gray border, even in Internet Explorer, thanks to <a href="http://html5shiv.googlecode.com/svn/trunk/html5.js">the HTML 5 shiv</a>.</p>
-			<p>However, the shiv doesn't work in Internet Explorer when an element's content is added with <code>innerHTML</code> <em>before</em> being appended to the document. That's a common use case, and noticeable in libraries like jQuery when you try to <code>append</code> or <code>load</code> (etc.) HTML5 content. For example:</p>
-		
-			<blockquote class="example">
-				<div id="example-1"></div>
-				<script>$('#example-1').append("<section><header><h3>Example 1: a broken section</h3></header><p>This section element should have a gray border like the others. It doesn't in Internet Explorer. :(</p></section>");</script>
-				<cite>Example 1 code:</cite>
-				<pre>$('#example-1').append("&lt;section&gt;&lt;header&gt;&lt;h3&gt;Example 1:\
-  a broken section&lt;/h3&gt;&lt;/header&gt;&lt;p&gt;This section element should\
-  have a black border like the others. It doesn't in Internet\
-  Explorer. :(&lt;/p&gt;&lt;/section&gt;");</pre>
-			</blockquote>
-		</section>
+		<div class="yay">
+			<p>...unless you use innerShiv:</p>
+			<pre>var <span class="var">html</span> = <span class="string">"&lt;section&gt;Yay! :)&lt;/section&gt;"</span>;<br />$(<span class="string">"#el"</span>).append(<span class="is">innerShiv(</span><span class="var">html</span><span class="is">)</span>);</pre>
+		</div>
+	</section>
 	
-		<section id="solution">
-			<h2>A Solution</h2>
-			<pre>innerShiv("&lt;section&gt;html string&lt;/section&gt;")</pre>
-			<p><code>innerShiv</code> is a function which takes your HTML string, adds it to a hidden document-appended element in IE, and returns an IE-safe document fragment or collection:</p>
-			
-			<blockquote class="example">
-				<div id="example-2"></div>
-				<script>$('#example-2').append(innerShiv("<section><header><h3>Example 2: a successfully styled section</h3></header><p>This section element should have a gray border like the others. And it does! Even in Internet Explorer! Yay!</p></section>"));</script>
-				<cite>Example 2 code:</cite>
-				<pre>$('#example-2').append(<strong>innerShiv(</strong>"&lt;section&gt;&lt;header&gt;&lt;h3&gt;\
-  Example 2: a successfully styled section&lt;/h3&gt;&lt;/header&gt;\
-  &lt;p&gt;This section element should have a gray border like the\
-  others. And it does! Even in Internet Explorer! Yay!.&lt;/p&gt;\
-  &lt;/section&gt;"<strong>)</strong>);</pre>
-			</blockquote>
-			
-			<p>innerShiv <strong>doesn't require jQuery or any other library</strong>. Because it returns document fragments, you can append its return values with <code>appendChild</code> or whatever:</p>
-			
-			<blockquote class="example">
-				<div id="example-3"></div>
-				<script>var s = document.createElement('section'); s.appendChild(innerShiv("<header><h3>Example 3: look, ma: no jQuery</h3></header><p>This section element's contents have been added with appendChild.</p>")); document.getElementById('example-3').appendChild(s);</script>
-				<cite>Example 3 code:</cite>
-				<pre>var s = document.createElement('section');
-
-s.appendChild(<strong>innerShiv(</strong>"&lt;header&gt;&lt;h3&gt;Example 3: look, ma:\
-  no jQuery&lt;/h3&gt;&lt;/header&gt;&lt;p&gt;This section element's contents\
-  have been added with appendChild.&lt;/p&gt;"<strong>)</strong>);
-
-document.getElementById('example-3').appendChild(s);</pre>
-			</blockquote>
-		</section>
-		
-		<section id="jquery">
-			<h2>Notes on jQuery</h2>
-			<p>When creating a jQuery object from innerShiv, you should pass a second parameter&mdash;boolean false&mdash;which instructs innerShiv to return an array of elements instead of a document fragment:</p>
-			<pre>$(innerShiv("html string", <strong>false</strong>))</pre>
-			<p>This enables you to do further manipulation before inserting content into the document:</p>
-			
-			<blockquote class="example">
-				<div id="example-4"></div>
-				<script>$('#example-4').append($(innerShiv("<section><header><h3>Example 4: </h3></header><p>This section's innerShiv'd header was manipulated with jQuery.</p></section>", false)).find('h3').append('returning nodes instead of a fragment').end());</script>
-				<cite>Example 4 code:</cite>
-				<pre>$('#example-4').append(
-  $(<strong>innerShiv(</strong>
-    "&lt;section&gt;&lt;header&gt;\
-      &lt;h3&gt;Example 4: &lt;/h3&gt;&lt;/header&gt;&lt;p&gt;This section's\
-      innerShiv'd header was manipulated with jQuery.\
-      &lt;/p&gt;&lt;/section&gt;"<strong>,
-    false
-  )</strong>)
-  .find('h3')
-    .append('returning nodes instead of a fragment')
-  .end()
-);</pre>
-			</blockquote>
-
-			<p>A common question is how to use innerShiv with jQuery's <code>.load()</code> method. <a href="https://gist.github.com/735829">This gist</a> provides an alternative method <code>.loadShiv()</code>, which is based on and acts like jQuery's <code>.load()</code> but passes incoming HTML through innerShiv before adding anything to the DOM. <a href="https://gist.github.com/735829">Download loadShiv separately</a> and add it to your project, then simply call <code>.loadShiv()</code> instead of <code>.load()</code>.</p>
-		</section>
-		
-		<section id="download">
-			<h2>Download</h2>
-			
-			<ul>
-				<li><a href="innershiv.js">innershiv.js</a> - uncompressed version</li>
-				<li><a href="innershiv.min.js">innershiv.js.min</a> - minified or whatever</li>
-			</ul>
-		</section>
-		
-		<footer><small>call me: <a href="http://jdbartlett.com">jdbartlett.com</a> | <a href="mailto:xo@jdbartlett.com">xo@jdbartlett.com</a> | <a href="http://twitter.com/jdbartlett">@jdbartlett</a></small></footer>
-	</article>
+	<h1><strong>innerShiv</strong> makes <em>HTML5shim</em> work<br/>on <em>innerHTML</em> &amp; <em>jQuery</em></h1>
+	
+	<section class="download">
+		<a href="innershiv.min.js">
+			<strong>Get innerShiv</strong>
+			<span>(886 bytes .js)</span>
+		</a>
+	</section>
+	
+	<section>
+		<h2>What the hell is innerShiv?</h2>
+		<p><a href="http://paulirish.com/2011/the-history-of-the-html5-shiv/">The HTML5 shi(m|v)</a> enables you to style HTML5 elements in old IE, but things break again when an unappended element's content is set by innerHTML, like so:</p>
+		<pre>var <span class="var">s</span> = <span class="var">document</span>.createElement(<span class="string">"div"</span>);<br><span class="var">s</span>.<span class="var">innerHTML</span> = <span class="string">"&lt;section&gt;Sad section cannot be styled. :(&lt;/section&gt;"</span>;<br><span class="var">document</span>.<span class="var">body</span>.appendChild(<span class="var">s</span>);</pre>
+		<p>innerShiv fixes this when you pass HTML5 through it and append the returned document fragment instead of using innerHTML directly:</p>
+		<pre>var <span class="var">s</span> = <span class="var">document</span>.createElement(<span class="string">"div"</span>);<br><span class="var">s</span>.appendChild(<span class="is">innerShiv(</span><span class="string">"&lt;section&gt;Happy section loves CSS. (:&lt;/section&gt;"</span><span class="is">)</span>);<br><span class="var">document</span>.<span class="var">body</span>.appendChild(<span class="var">s</span>);</pre>
+	</section>
+	
+	<section>
+		<h2>Can I use this with jQuery?</h2>
+		<p>Yes, if you use its array return mode by passing boolean false as its second parameter.</p>
+		<p>By default, innerShiv returns a document fragment. jQuery hates document fragments. To have innerShiv return a jQuery-friendly array of elements instead, pass it a second parameter &mdash; boolean false:</p>
+		<pre>$(innerShiv(<span class="string">"&lt;section&gt;One.&lt;/section&gt;&lt;section&gt;Two.&lt;/section&gt;"</span>, <span class="is">false</span>));</pre>
+		<p>If your hands get tired of falsifying, you can also set innerShiv.returnFrag to false, which makes innerShiv return arrays instead of fragments by default:</p>
+		<pre><span class="is">innerShiv.returnFrag = false;</span><br>$(innerShiv(<span class="string">"&lt;section&gt;One.&lt;/section&gt;&lt;section&gt;Two.&lt;/section&gt;"</span>));</pre>
+	</section>
+	
+	<a href="http://github.com/jdbartlett/innershiv"><img class="fork" src="https://assets0.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf?repo=&amp;url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 </body>
 </html>
