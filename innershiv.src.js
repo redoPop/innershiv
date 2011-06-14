@@ -1,36 +1,21 @@
 // http://jdbartlett.github.com/innershiv | WTFPL License
-
-// This source code tries to balance readability with compressor and performance hacks.
-// JSHint does not like it. JSLint hates it. It cowers under the couch if anyone even
-// threatens a glance from Crockford. If this were not so, innershiv.js would be a bit
-// bigger or I'd spend a lot longer fiddling with it after each tweak to the source.
-
 window.innerShiv = (function () {
-	var div
-	,   doc = document // Mmmm... comma-first style...
-	,   needsShiv
+	var div;
+	var doc = document;
+	var needsShiv;
 	
 	// Array of elements that are new in HTML5
-	,   html5 = 'abbr article aside audio canvas command datalist details figure figcaption footer header hgroup keygen mark meter nav output progress section source summary time video'.split(' ')
+	var html5 = 'abbr article aside audio canvas command datalist details figure figcaption footer header hgroup keygen mark meter nav output progress section source summary time video'.split(' ');
 	
-	// Regular expressions used for idiot proofing (most of this is stolen from jQuery)
-	,   inaTable = /^<(tbody|tr|td|col|colgroup|thead|tfoot)/i
-	,   remptyTag = /(<([\w:]+)[^>]*?)\/>/g
-	,   rselfClosing = /^(?:area|br|col|embed|hr|img|input|link|meta|param)$/i
-	,   rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi
-	;
-	
-	// Used with rselfClosing to idiot-proof self-closing tags
-	function fcloseTag (all, front, tag) {
-		return rselfClosing.test(tag) ? all : front + '></' + tag + '>';
+	// Used to idiot-proof self-closing tags
+	function fcloseTag(all, front, tag) {
+		return (/^(?:area|br|col|embed|hr|img|input|link|meta|param)$/i).test(tag) ? all : front + '></' + tag + '>';
 	}
 	
-	function innerShiv (
-		html /* string */,
+	function innerShiv(
+		html, /* string */
 		returnFrag /* optional false bool */
 	) {
-		var tabled, scope;
-		
 		if (!div) {
 			div = doc.createElement('div');
 			
@@ -41,34 +26,41 @@ window.innerShiv = (function () {
 			if (needsShiv) {
 				// MSIE allows you to create elements in the context of a document
 				// fragment. Jon Neal first discovered this trick and used it in his
-				// own shimprove: http://www.iecss.com/shimprove/ <- GIVE HIM LOVE
-				var frag = doc.createDocumentFragment(), i = html5.length;
+				// own shimprove: http://www.iecss.com/shimprove/
+				var shimmedFrag = doc.createDocumentFragment();
+				var i = html5.length;
 				while (i--) {
-					frag.createElement(html5[i]);
+					shimmedFrag.createElement(html5[i]);
 				}
 				
-				div = frag.appendChild(div);
+				shimmedFrag.appendChild(div);
 			}
 		}
 		
-		// Trim whitespace to avoid returning text nodes, strip script tags, and fix
-		// misuses of self-closing tags.
 		html = html
-			.replace(/^\s\s*/, '')
-			.replace(/\s\s*$/, '')
-			.replace(rscript, '')
-			.replace(remptyTag, fcloseTag)
+			// Trim whitespace to avoid unexpected text nodes in return data:
+			.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+			// Strip any scripts:
+			.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+			// Fix misuses of self-closing tags:
+			.replace(/(<([\w:]+)[^>]*?)\/>/g, fcloseTag)
 			;
 		
 		// Fix for using innerHTML in a table
-		if (tabled = html.match(inaTable)) {
-			html = '<table>' + html + '</table>';
+		var tabled;
+		if (tabled = html.match(/^<(tbody|tr|td|col|colgroup|thead|tfoot)/i)) {
+			div.innerHTML = '<table>' + html + '</table>';
+		} else {
+			div.innerHTML = html;
 		}
 		
-		div.innerHTML = html;
-		
 		// Avoid returning the tbody or tr when fixing for table use
-		scope = tabled ? div.getElementsByTagName(tabled[1])[0].parentNode : div;
+		var scope;
+		if (tabled) {
+			scope = div.getElementsByTagName(tabled[1])[0].parentNode;
+		} else {
+			scope = div;
+		}
 		
 		// If not in jQuery return mode, return child nodes array
 		if (returnFrag === false) {
@@ -76,12 +68,13 @@ window.innerShiv = (function () {
 		}
 		
 		// ...otherwise, build a fragment to return
-		var frag = doc.createDocumentFragment(), i = scope.childNodes.length;
-		while (i--) {
-			frag.appendChild(scope.firstChild);
+		var returnedFrag = doc.createDocumentFragment();
+		var j = scope.childNodes.length;
+		while (j--) {
+			returnedFrag.appendChild(scope.firstChild);
 		}
 		
-		return frag;
+		return returnedFrag;
 	}
 	
 	// innerShiv.returnFrag = false to always use jQuery return mode

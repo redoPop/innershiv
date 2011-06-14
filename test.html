@@ -124,13 +124,14 @@
 		</section>
 		
 		<section class="test">
-			<h2>Test 7: innerShiv outside DOM</h2>
-			<p>This repeats Test 3 to make sure innerShiv hasn't been corrupted by Test 6.</p>
+			<h2>Test 7: corrupt innerShiv outside DOM</h2>
+			<p>This makes sure innerShiv can't be accidentally corrupted in fragment mode by unappended content.</p>
 			
 			<div id="test-7"></div>
 			<script>
 				test (7, function () {
 					var s = document.createElement('div');
+					innerShiv("<p class=\"error\">You should not see this text.</p>");
 					s.appendChild(innerShiv("<section><p>This paragraph should have a green background.</p></section>"));
 					document.getElementById('test-7').appendChild(s);
 				});
