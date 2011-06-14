@@ -95,10 +95,9 @@
 		
 		<section class="test">
 			<h2>Test 5: jQuery manipulation of innerShiv'd content</h2>
-			<p>This tests innerShiv's jQuery Return Mode, which returns an array of elements instead of a DOM fragment
+			<p>This tests innerShiv's jQuery Return Mode, which returns an array of elements instead of a DOM fragment.</p>
 			
 			<div id="test-5"></div>
-			<script>/* window.innerShiv.returnFrag = false */</script>
 			<script>
 				test (5, function () {
 					$('#test-5').append($(innerShiv("<section><p class=\"error\">This paragraph should have a green background.</p></section>", false)).find('p').removeClass('error').end());

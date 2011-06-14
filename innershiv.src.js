@@ -12,7 +12,7 @@ window.innerShiv = (function () {
 		return (/^(?:area|br|col|embed|hr|img|input|link|meta|param)$/i).test(tag) ? all : front + '></' + tag + '>';
 	}
 	
-	function innerShiv(
+	return function (
 		html, /* string */
 		returnFrag /* optional false bool */
 	) {
@@ -75,10 +75,5 @@ window.innerShiv = (function () {
 		}
 		
 		return returnedFrag;
-	}
-	
-	// innerShiv.returnFrag = false to always use jQuery return mode
-	innerShiv.returnFrag = 1;
-	
-	return innerShiv;
+	};
 }());
