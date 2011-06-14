@@ -56,7 +56,7 @@ section {
 	background:#192339;
 	color:#F1F1F1;
 	margin:40px 4% 20px;
-	padding:0;
+	padding:10px 0;
 	overflow:hidden;
 	
 	-moz-border-radius:30px;
@@ -64,15 +64,16 @@ section {
 	border-radius:30px;
 }
 	.leadin .boo {
-		padding-right:0;
+		padding-right:1%;
 		width:45%;
 	}
 	.leadin .yay {
-		width:35%;
+		padding-left:1%;
+		width:43%;
 	}
 	.leadin div {
 		float:left;
-		padding:20px 5%;
+		padding:10px 5%;
 	}
 	.leadin p {
 		font-size:0.85em;
@@ -80,6 +81,8 @@ section {
 	}
 	.leadin pre {
 		margin:20px 0 0;
+		max-width:none;
+		overflow:visible;
 		padding:0;
 	}
 
@@ -134,7 +137,7 @@ h1 {
 .var { color:#7587AA; }
 
 @media screen and (max-width: 880px) {
-	.leadin .boo, .leadin .yay { float:none; width:auto; }
+	.leadin .boo, .leadin .yay { float:none; padding:10px 5%; width:auto; }
 }
 
 @media screen and (max-width: 700px) {
