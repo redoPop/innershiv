@@ -38,15 +38,15 @@
 		<h2>What the hell is innerShiv?</h2>
 		<p><a href="http://paulirish.com/2011/the-history-of-the-html5-shiv/">The HTML5 shi(m|v)</a> fixes styling HTML5 elements in old IE, but things break again when an unappended element's content is set by innerHTML, like so:</p>
 		<pre>var <span class="var">s</span> = <span class="var">document</span>.createElement(<span class="string">"div"</span>);<br><span class="var">s</span>.<span class="var">innerHTML</span> = <span class="string">"&lt;section&gt;Sad section cannot be styled. :(&lt;/section&gt;"</span>;<br><span class="var">document</span>.<span class="var">body</span>.appendChild(<span class="var">s</span>);</pre>
-		<p>To fix this, pass your HTML5 through innerShiv and append the returned document fragment instead of using innerHTML directly:</p>
+		<p>To fix this, pass your HTML5 through innerShiv and append the returned document fragment, instead of using innerHTML directly:</p>
 		<pre>var <span class="var">s</span> = <span class="var">document</span>.createElement(<span class="string">"div"</span>);<br><span class="var">s</span>.appendChild(<span class="is">innerShiv(</span><span class="string">"&lt;section&gt;Happy section loves CSS. (:&lt;/section&gt;"</span><span class="is">)</span>);<br><span class="var">document</span>.<span class="var">body</span>.appendChild(<span class="var">s</span>);</pre>
 	</section>
 	
 	<section>
 		<h2>Can I use this with jQuery?</h2>
-		<p>Yes, if you use its array return mode by passing boolean false as a second parameter.</p>
-		<p>By default, innerShiv returns a document fragment. jQuery hates document fragments. To have innerShiv return a jQuery-friendly array of elements instead, pass it a second parameter &mdash; boolean false:</p>
-		<pre>$(innerShiv(<span class="string">"&lt;section&gt;One.&lt;/section&gt;&lt;section&gt;Two.&lt;/section&gt;"</span>, <span class="is">false</span>));</pre>
+		<p>Yes, but pass boolean false as a second parameter.</p>
+		<p>By default, innerShiv returns a document fragment, which can mess up jQuery in some situations. To have innerShiv return a jQuery-friendly array of elements, pass boolean false as a second parameter:</p>
+		<pre>$(<span class="string">"#el"</span>).append(innerShiv(<span class="string">"&lt;section&gt;Hi.&lt;/section&gt;"</span>, <span class="is">false</span>));</pre>
 	</section>
 	
 	<footer>

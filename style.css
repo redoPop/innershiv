@@ -24,7 +24,6 @@ footer {
 }
 footer a {
 	color:#908E98;
-	text-decoration:none;
 }
 h2 {
 	color:#908E98;
@@ -62,10 +61,16 @@ section {
 	-webkit-border-radius:30px;
 	border-radius:30px;
 }
+	.leadin .boo {
+		padding-right:0;
+		width:45%;
+	}
+	.leadin .yay {
+		width:35%;
+	}
 	.leadin div {
 		float:left;
 		padding:20px 5%;
-		width:40%;
 	}
 	.leadin p {
 		font-size:0.85em;
