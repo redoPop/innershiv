@@ -131,8 +131,8 @@ h1 {
 .string { color:#90A86B; }
 .var { color:#7587AA; }
 
-@media screen and (max-width: 800px) {
-	.leadin div { float:none; width:auto; }
+@media screen and (max-width: 880px) {
+	.leadin .boo, .leadin .yay { float:none; width:auto; }
 }
 
 @media screen and (max-width: 700px) {
