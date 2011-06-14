@@ -39,6 +39,8 @@ pre {
 	font:0.8em "Monaco","lucida console","bitstream vera sans mono",monospace;
 	line-height:1.8;
 	margin:20px 0;
+	max-width:100%;
+	overflow-x:auto;
 	padding:10px 20px;
 	
 	-moz-border-radius:20px;
@@ -47,6 +49,7 @@ pre {
 }
 section {
 	margin:60px 4%;
+	width:92%;
 }
 
 .leadin {
@@ -55,7 +58,6 @@ section {
 	margin:40px 4% 20px;
 	padding:0;
 	overflow:hidden;
-	width:92%;
 	
 	-moz-border-radius:30px;
 	-webkit-border-radius:30px;
