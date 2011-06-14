@@ -1,0 +1,47 @@
+h1. HTML5 innerShiv
+
+Even with HTML5shim, this section won't be styled in IE < 9:
+
+<pre>
+<code>
+  var s = document.createElement('div');
+  s.innerHTML = "<section>Hi!</section>";
+  document.body.appendChild(s);
+</code>
+</pre>
+
+innerShiv is a workaround.
+
+This is the verbose documentation. If you just want the skinny and the script, "go here!":http://jdbartlett.github.com/innershiv
+
+h2. The Problem
+
+The HTML5shim fixes styling static HTML5 documents in old IE, but its reach is limited to the document itself. HTML5 elements that are created _before_ they're appended to the document fall outside its tender and loving embrace. That's a common use case, and noticeable in libraries like jQuery when you try to .append() or .load() HTML5 content.
+
+h2. A Solution
+
+<pre>
+<code>
+  innerShiv("<section>html string</section>")
+</code>
+</pre>
+
+innerShiv is a function which takes your HTML5 string and returns an IE-safe document fragment or element collection shim'd to work with old IE.
+
+h2. On jQuery
+
+When creating a jQuery object from innerShiv, you should pass a second parameter -- boolean false -- which instructs innerShiv to return an array of elements instead of a document fragment:
+
+<pre>
+<code>
+  $(innerShiv("<section>html string</section>", false))
+</code>
+</pre>
+
+This enables you to do further manipulation before inserting your content into the document. If the jQuery/collection return parameter is not passed, you cannot perform additional manipulations in jQuery.
+
+A lot of people ask how to use innerShiv with jQuery's .load() method. "This gist":https://gist.github.com/735829 provides an alternative method .loadShiv(), which is based on and acts like jQuery's .load() but passes incoming HTML through innerShiv before adding anything to the DOM. "Download loadShiv separately":https://gist.github.com/735829 and add it to your project, then simply call .loadShiv() instead of .load().
+
+If you're loading an entire content fragment straight into the document (i.e., if you're .load()ing into an element that's currently attached the already-shim'd document, and you're not including a selector in .load()'s url parameter), you don't need to use loadShiv or innerShiv. innerShiv is only needed when you're setting the innerHTML of an element outside the shim'd document, something jQuery has to do when using a selector on loaded content or when loading content into an element that's not attached to the document.
+
+Please note that, to keep its filesize down, innerShiv doesn't provide all the robustness of jQuery's HTML parsing. For example, it strips inline scripts from the HTML without parsing them.
