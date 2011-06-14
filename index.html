@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html public "♥">
 <!--[if lt IE 8 ]><html lang="en" class="oldie"><![endif]-->
 <!--[if (gt IE 7)|!(IE)]><!--><html lang="en"><!--<![endif]-->
 <head>
@@ -30,26 +30,28 @@
 	<section class="download">
 		<a href="innershiv.min.js">
 			<strong>Get innerShiv</strong>
-			<span>(886 bytes .js)</span>
+			<span>(~1k .js)</span>
 		</a>
 	</section>
 	
 	<section>
 		<h2>What the hell is innerShiv?</h2>
-		<p><a href="http://paulirish.com/2011/the-history-of-the-html5-shiv/">The HTML5 shi(m|v)</a> enables you to style HTML5 elements in old IE, but things break again when an unappended element's content is set by innerHTML, like so:</p>
+		<p><a href="http://paulirish.com/2011/the-history-of-the-html5-shiv/">The HTML5 shi(m|v)</a> fixes styling HTML5 elements in old IE, but things break again when an unappended element's content is set by innerHTML, like so:</p>
 		<pre>var <span class="var">s</span> = <span class="var">document</span>.createElement(<span class="string">"div"</span>);<br><span class="var">s</span>.<span class="var">innerHTML</span> = <span class="string">"&lt;section&gt;Sad section cannot be styled. :(&lt;/section&gt;"</span>;<br><span class="var">document</span>.<span class="var">body</span>.appendChild(<span class="var">s</span>);</pre>
-		<p>innerShiv fixes this when you pass HTML5 through it and append the returned document fragment instead of using innerHTML directly:</p>
+		<p>To fix this, pass your HTML5 through innerShiv and append the returned document fragment instead of using innerHTML directly:</p>
 		<pre>var <span class="var">s</span> = <span class="var">document</span>.createElement(<span class="string">"div"</span>);<br><span class="var">s</span>.appendChild(<span class="is">innerShiv(</span><span class="string">"&lt;section&gt;Happy section loves CSS. (:&lt;/section&gt;"</span><span class="is">)</span>);<br><span class="var">document</span>.<span class="var">body</span>.appendChild(<span class="var">s</span>);</pre>
 	</section>
 	
 	<section>
 		<h2>Can I use this with jQuery?</h2>
-		<p>Yes, if you use its array return mode by passing boolean false as its second parameter.</p>
+		<p>Yes, if you use its array return mode by passing boolean false as a second parameter.</p>
 		<p>By default, innerShiv returns a document fragment. jQuery hates document fragments. To have innerShiv return a jQuery-friendly array of elements instead, pass it a second parameter &mdash; boolean false:</p>
 		<pre>$(innerShiv(<span class="string">"&lt;section&gt;One.&lt;/section&gt;&lt;section&gt;Two.&lt;/section&gt;"</span>, <span class="is">false</span>));</pre>
-		<p>If your hands get tired of falsifying, you can also set innerShiv.returnFrag to false, which makes innerShiv return arrays instead of fragments by default:</p>
-		<pre><span class="is">innerShiv.returnFrag = false;</span><br>$(innerShiv(<span class="string">"&lt;section&gt;One.&lt;/section&gt;&lt;section&gt;Two.&lt;/section&gt;"</span>));</pre>
 	</section>
+	
+	<footer>
+		<p>&#9829; me: <a href="http://twitter.com/jdbartlett" rel="me">@jdbartlett</a> | <a href="mailto:xo@jdbartlett.com">xo@jdbartlett.com</a> &amp; <a href="http://twitter.com/?status=Stab%20IE%20in%20the%20DOM%20with%20innerShiv:%20http%3A//bit.ly/ishiv%20-%20makes%20HTML5shim%20work%20on%20innerHTML%20%26%20jQuery">tell your friends</a></p>
+	</footer>
 	
 	<a href="http://github.com/jdbartlett/innershiv"><img class="fork" src="https://assets0.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf?repo=&amp;url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 </body>
