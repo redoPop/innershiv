@@ -56,7 +56,7 @@ window.innerShiv = (function () {
 		
 		// Fix for using innerHTML in a table
 		var tabled;
-		if (tabled = html.match(/^<(tbody|tr|td|col|colgroup|thead|tfoot)/i)) {
+		if (tabled = html.match(/^<(tbody|tr|td|col|colgroup|thead|tfoot)[\s\/>]/i)) {
 			div.innerHTML = '<table>' + html + '</table>';
 		} else {
 			div.innerHTML = html;
