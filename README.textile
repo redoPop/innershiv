@@ -1,3 +1,9 @@
+h1. You don't need to use this!
+
+**STOP!** Instead of implementing innerShiv, please check out the new html5shiv from aFarkas and jonathantneal. Their updated shim patches for the same issues innerShiv addresses, and makes innerShiv itself redundant.
+
+**innerShiv is happily retired! Please do not disturb its peaceful slumber!**
+
 h1. HTML5 innerShiv
 
 Even with HTML5shim, this section won't be styled in IE < 9:

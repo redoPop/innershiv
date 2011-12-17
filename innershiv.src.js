@@ -1,6 +1,15 @@
 /* innerShiv: makes HTML5shim work on innerHTML & jQuery
  * http://jdbartlett.github.com/innershiv
  *
+ * -----------------------------------------------------------------
+ *
+ * STOP! Instead of implementing innerShiv, please check out the new
+ * html5shiv from aFarkas and jonathantneal. Their updated shim
+ * patches for the same issues innerShiv addresses, and makes
+ * innerShiv itself redundant. YOU DON'T NEED TO USE THIS CODE!
+ *
+ * -----------------------------------------------------------------
+ *
  * This program is free software. It comes without any warranty, to
  * the extent permitted by applicable law. You can redistribute it
  * and/or modify it under the terms of the Do What The Fuck You Want
