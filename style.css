@@ -147,6 +147,9 @@ h1 {
 	top:0;
 	width:100%;
 }
+	.stop a {
+		color:#fff;
+	}
 	.stop h2 {
 		color:#fff;
 		font-size:250%;
@@ -158,7 +161,7 @@ h1 {
 		background:#a11;
 		color:#fff;
 		font-size:130%;
-		height:200px;
+		height:240px;
 		margin:-220px 0 0 -440px;
 		padding:40px;
 		left:50%;
