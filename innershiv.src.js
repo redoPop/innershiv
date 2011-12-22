@@ -8,6 +8,8 @@
  * patches for the same issues innerShiv addresses, and makes
  * innerShiv itself redundant. YOU DON'T NEED TO USE THIS CODE!
  *
+ * http://html5shiv.googlecode.com/
+ *
  * -----------------------------------------------------------------
  *
  * This program is free software. It comes without any warranty, to

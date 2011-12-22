@@ -1,6 +1,8 @@
-h1. You don't need to use this!
+h1. STOP! You don't need this!
 
-**STOP!** Instead of implementing innerShiv, please check out the new html5shiv from aFarkas and jonathantneal. Their updated shim patches for the same issues innerShiv addresses, and makes innerShiv itself redundant.
+**STOP, I SAY!** Instead of implementing innerShiv, please check out the new html5shiv from aFarkas and jonathantneal. Their updated shim patches for the same issues innerShiv addresses, and makes innerShiv itself redundant.
+
+"http://html5shiv.googlecode.com/":http://code.google.com/p/html5shiv/
 
 **innerShiv is happily retired! Please do not disturb its peaceful slumber!**
 
