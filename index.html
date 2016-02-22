@@ -15,32 +15,33 @@
 <body>
 	<section class="stop">
 		<div class="inner">
-			<h2><em>STOP!</em> Don't use innerShiv!</h2>
-			<p>html5shiv now patches for the innerHTML issue! Update html5shiv and you won't have to use innerShiv anymore: </p><p><a href="http://code.google.com/p/html5shiv/">http://html5shiv.googlecode.com/</a></p>
+			<h2><em>DEPRECATED!</em></h2>
+			<p>Don't use innerShiv! The HTML5 Shiv now contains patches for the innerHTML issue. Use that instead:</p>
+			<p><a href="https://github.com/afarkas/html5shiv">https://github.com/afarkas/html5shiv</a></p>
 		</div>
 	</section>
-	
+
 	<section class="leadin">
 		<div class="boo">
 			<p>Even with HTML5shim, IE &lt; 9 won't style this:</p>
 			<pre>var <span class="var">html</span> = <span class="string">"&lt;section&gt;Baw :(&lt;/section&gt;"</span>;<br />$(<span class="string">"#el"</span>).append(<span class="var">html</span>);</pre>
 		</div>
-		
+
 		<div class="yay">
 			<p>...unless you use innerShiv:</p>
 			<pre>var <span class="var">html</span> = <span class="string">"&lt;section&gt;Yay! :)&lt;/section&gt;"</span>;<br />$(<span class="string">"#el"</span>).append(<span class="is">innerShiv(</span><span class="var">html</span><span class="is">)</span>);</pre>
 		</div>
 	</section>
-	
+
 	<h1><strong>innerShiv</strong> makes <em>HTML5shim</em> work<br/>on <em>innerHTML</em> &amp; <em>jQuery</em></h1>
-	
+
 	<section class="download">
 		<a href="innershiv.js">
 			<strong>Get innerShiv</strong>
 			<span>(~1k .js)</span>
 		</a>
 	</section>
-	
+
 	<section>
 		<h2>What the hell is innerShiv?</h2>
 		<p><a href="http://paulirish.com/2011/the-history-of-the-html5-shiv/">The HTML5 shi(m|v)</a> fixes styling HTML5 elements in old IE, but things break again when an unappended element's content is set by innerHTML, like so:</p>
@@ -48,14 +49,14 @@
 		<p>To fix this, pass your HTML5 through innerShiv and append the returned document fragment, instead of using innerHTML directly:</p>
 		<pre>var <span class="var">s</span> = <span class="var">document</span>.createElement(<span class="string">"div"</span>);<br><span class="var">s</span>.appendChild(<span class="is">innerShiv(</span><span class="string">"&lt;section&gt;Happy section loves CSS. (:&lt;/section&gt;"</span><span class="is">)</span>);<br><span class="var">document</span>.<span class="var">body</span>.appendChild(<span class="var">s</span>);</pre>
 	</section>
-	
+
 	<section>
 		<h2>Can I use this with jQuery?</h2>
 		<p>Yes, but pass boolean false as a second parameter.</p>
 		<p>By default, innerShiv returns a document fragment, which can mess up jQuery in some situations. To have innerShiv return a jQuery-friendly array of elements, pass boolean false as a second parameter:</p>
 		<pre>$(<span class="string">"#el"</span>).append(innerShiv(<span class="string">"&lt;section&gt;Hi.&lt;/section&gt;"</span>, <span class="is">false</span>));</pre>
 	</section>
-	
+
 	<footer>
 		<p>&#9829; me: <a href="https://twitter.com/redoPop" rel="me">@redoPop</a> | <a href="mailto:joe@redoPop.com">joe@redoPop.com</a> &amp; <a href="http://twitter.com/?status=Stab%20IE%20in%20the%20DOM%20with%20innerShiv:%20http%3A//bit.ly/ishiv%20-%20makes%20HTML5shim%20work%20on%20innerHTML%20%26%20jQuery">tell your friends</a></p>
 	</footer>
